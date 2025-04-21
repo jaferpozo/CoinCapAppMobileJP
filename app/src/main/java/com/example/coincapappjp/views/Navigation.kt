@@ -1,6 +1,10 @@
 package com.example.coincapappjp.views
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.provider.Settings.Global.getString
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
@@ -16,10 +20,25 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.coincapappjp.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {
+    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+        if (!task.isSuccessful) {
+            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+            return@OnCompleteListener
+        }
+        // Get new FCM registration token
+        val token = task.result
+        // Log and toast
+        val msg = "este es mi token----- "+token+" --"
+        Log.d(TAG, msg)
+
+    })
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomTabBar(navController) }
@@ -27,6 +46,8 @@ fun MainScreen() {
         NavigationGraph(navController)
     }
 }
+
+
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
