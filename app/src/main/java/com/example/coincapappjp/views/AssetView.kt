@@ -1,4 +1,5 @@
 package com.example.coincapappjp.views
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,7 +34,6 @@ import com.example.coincapappjp.models.Asset
 import com.example.coincapappjp.navigation.BottomNavigationItem
 import com.example.coincapappjp.viewModels.AssetsListViewModel
 import androidx.compose.foundation.lazy.items
-import androidx.compose.runtime.getValue
 
 @Composable
 fun AssetsList(viewModel: AssetsListViewModel = hiltViewModel(), navController: NavHostController) {
@@ -43,9 +43,13 @@ fun AssetsList(viewModel: AssetsListViewModel = hiltViewModel(), navController: 
             .fillMaxHeight()
             .background(MaterialTheme.colorScheme.onBackground)
     ) {
-        items(assets, key = { it.id } ) { asset ->
-            AssetRow(asset) { assetId ->
-                navController.navigate("${BottomNavigationItem.Home.route}/${assetId}")
+        items(assets, key = { it.id }) { asset ->
+            AssetRow(asset) { clickedId ->
+                // encode para pasar bien el nombre
+                val encodedName = Uri.encode(asset.name)
+                navController.navigate(
+                    "${BottomNavigationItem.Home.route}/$clickedId/$encodedName"
+                )
             }
         }
     }

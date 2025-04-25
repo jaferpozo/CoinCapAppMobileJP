@@ -25,7 +25,6 @@ class AssetsListViewModel @Inject constructor(
     init {
         fetchAssets()
     }
-
     private fun fetchAssets() {
         viewModelScope.launch {
             try {
@@ -33,7 +32,6 @@ class AssetsListViewModel @Inject constructor(
                 val mappedAssets = result.map { assetResponse ->
                     val price = String.format("%.2f", assetResponse.priceUsd.toDouble())
                     val percentage = String.format("%.2f", assetResponse.changePercent24Hr.toDouble()).toDouble()
-
                     Asset(
                         assetResponse.id,
                         assetResponse.name,

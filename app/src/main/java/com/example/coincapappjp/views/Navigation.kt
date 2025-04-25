@@ -32,7 +32,6 @@ fun MainScreen() {
             Log.w(TAG, "Fetching FCM registration token failed", task.exception)
             return@OnCompleteListener
         }
-        // Get new FCM registration token
         val token = task.result
         // Log and toast
         val msg = "este es mi token----- "+token+" --"
@@ -53,19 +52,28 @@ fun MainScreen() {
 fun NavigationGraph(navController: NavHostController) {
     val assetIdKey = "assetId"
     NavHost(navController, startDestination = BottomNavigationItem.Home.route) {
-        composable(BottomNavigationItem.Home.route) { AssetsList(navController = navController) }
-        composable(BottomNavigationItem.Favourites.route) { Favourites() }
-        composable(BottomNavigationItem.Settings.route) { Settings() }
+        composable(BottomNavigationItem.Home.route) {
+            AssetsList(navController = navController)
+        }
+        composable(BottomNavigationItem.Favourites.route) { FavouritesView() }
+        composable(BottomNavigationItem.Settings.route) { SettingsView() }
 
         composable(
-            route = "${BottomNavigationItem.Home.route}/{assetId}",
-            arguments = listOf(navArgument("assetId") { type = NavType.StringType })
+            route = "${BottomNavigationItem.Home.route}/{assetId}/{assetName}",
+            arguments = listOf(
+                navArgument("assetId") { type = NavType.StringType },
+                navArgument("assetName") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
+            val assetId = backStackEntry.arguments?.getString("assetId") ?: "unknown"
+            val assetName = backStackEntry.arguments?.getString("assetName") ?: "unknown"
             AssetDetailView(
-                assetId = backStackEntry.arguments?.getString(assetIdKey) ?: "missing asset",
-                navController
+                assetId = assetId,
+                assetName = assetName,
+                navController = navController
             )
         }
+
     }
 }
 
@@ -83,7 +91,6 @@ fun BottomTabBar(navController: NavHostController) {
 
         items.forEach { barItem ->
             val selected = barItem.route == currentRoute
-
             NavigationBarItem(
                 selected = selected,
                 label = { Text(barItem.title) },

@@ -1,4 +1,5 @@
 [versions]
+accompanistSwiperefresh = "0.28.0"
 agp = "8.9.1"
 firebaseBom = "33.12.0"
 kotlin = "2.0.21"
@@ -14,11 +15,14 @@ coilCompose = "3.1.0"
 ktor = "3.1.2"
 coroutines = "1.9.0"
 hilt-navigation = "1.2.0"
-kotlinxSerializationJson = "1.6.3"
+kotlinxSerializationJson = "1.8.0"
 google-services = "4.4.2"
 firebaseMessagingKtx = "24.1.1"
+firebaseAuthKtx = "23.2.0"
+firebaseFirestoreKtx = "25.1.4"
 
 [libraries]
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefresh" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
@@ -54,6 +58,8 @@ ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation",
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

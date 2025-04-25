@@ -60,8 +60,11 @@ dependencies {
     // Dependency Injection
     implementation(libs.hilt.android)
     implementation(libs.firebase.messaging.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation (libs.accompanist.swiperefresh)
 
     // Async images
     implementation(libs.coil.compose)
@@ -91,6 +94,7 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
 }
 
 kapt {
