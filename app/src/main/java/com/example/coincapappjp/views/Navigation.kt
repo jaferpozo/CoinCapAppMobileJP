@@ -33,7 +33,6 @@ fun MainScreen() {
             return@OnCompleteListener
         }
         val token = task.result
-        // Log and toast
         val msg = "este es mi token----- "+token+" --"
         Log.d(TAG, msg)
 
@@ -55,7 +54,7 @@ fun NavigationGraph(navController: NavHostController) {
         composable(BottomNavigationItem.Home.route) {
             AssetsList(navController = navController)
         }
-        composable(BottomNavigationItem.Favourites.route) { FavouritesView() }
+        composable(BottomNavigationItem.Favourites.route) { FavouritesView(navController = navController) }
         composable(BottomNavigationItem.Settings.route) { SettingsView() }
 
         composable(

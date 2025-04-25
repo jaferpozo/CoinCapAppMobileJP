@@ -40,7 +40,6 @@ class AssetDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(loading = true, error = null) }
             try {
-                // opcional: podrías llamar a un endpoint /assets/{id}
                 val all = apiService.getAssets().data
                 val dto = all.firstOrNull { it.id == assetId }
                 if (dto == null) {
@@ -80,8 +79,6 @@ class AssetDetailViewModel @Inject constructor(
             }
         }
     }
-
-    /** Limpia el resultado para no disparar el mismo Snackbar varias veces */
     fun clearAddResult() {
         _uiState.update { it.copy(addResult = null) }
     }

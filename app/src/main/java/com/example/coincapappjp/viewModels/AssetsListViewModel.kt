@@ -14,14 +14,8 @@ import javax.inject.Inject
 class AssetsListViewModel @Inject constructor(
     private val apiService: CoinCapApiService
 ) : ViewModel() {
-
-    // TODO: add Loading
-
     private val _assets = MutableStateFlow<List<Asset>>(emptyList())
     val assets: StateFlow<List<Asset>> = _assets
-
-    // TODO: add error
-
     init {
         fetchAssets()
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coincapappjp.models.UserProfile
 import com.example.coincapappjp.data.AuthRepository
+import com.example.coincapappjp.models.LoginUiState
 import com.example.coincapappjp.utils.Resource
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -14,13 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class LoginUiState(
-    val email: String = "",
-    val password: String = "",
-    val loading: Boolean = false,
-    val error: String? = null,
-    val userProfile: UserProfile? = null
-)
+
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -41,10 +36,8 @@ class SettingsViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             _uiState.update { it.copy(loading = true, error = null) }
-
             when (val res = repo.signIn(_uiState.value.email, _uiState.value.password)) {
                 is Resource.Success -> {
-                    // Ya autenticado, tomamos email/uid de currentUser
                     val user = repo.getCurrentUser()
                     if (user != null) {
                         val profile = UserProfile(
@@ -56,7 +49,6 @@ class SettingsViewModel @Inject constructor(
                             it.copy(loading = false, userProfile = profile)
                         }
                     } else {
-                        // rara pero posible
                         _uiState.update {
                             it.copy(
                                 loading = false,

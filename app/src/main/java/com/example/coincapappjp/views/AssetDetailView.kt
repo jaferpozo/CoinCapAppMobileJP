@@ -25,7 +25,6 @@ fun AssetDetailView(
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
-    // Mostrar resultado de agregar favorito
     LaunchedEffect(uiState.addResult) {
         uiState.addResult?.let { result ->
             if (result.isSuccess) {

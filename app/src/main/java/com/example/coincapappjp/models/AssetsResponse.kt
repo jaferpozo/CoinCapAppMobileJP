@@ -6,3 +6,7 @@ import kotlinx.serialization.Serializable
 data class AssetsResponse (
     val data: List<AssetResponse>
 )
+@Serializable
+data class AssetsResponseFavourites (
+    val data: AssetResponse
+)

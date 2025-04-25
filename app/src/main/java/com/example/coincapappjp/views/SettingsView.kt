@@ -26,9 +26,7 @@ fun SettingsView() {
         color = MaterialTheme.colorScheme.background
     ) {
         val user = FirebaseAuth.getInstance().currentUser
-
         if (state.userProfile == null || user == null ) {
-            // ─── FORMULARIO DE LOGIN ──────────────────────────────────────────────
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center

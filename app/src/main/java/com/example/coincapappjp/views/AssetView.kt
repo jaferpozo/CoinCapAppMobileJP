@@ -45,7 +45,6 @@ fun AssetsList(viewModel: AssetsListViewModel = hiltViewModel(), navController: 
     ) {
         items(assets, key = { it.id }) { asset ->
             AssetRow(asset) { clickedId ->
-                // encode para pasar bien el nombre
                 val encodedName = Uri.encode(asset.name)
                 navController.navigate(
                     "${BottomNavigationItem.Home.route}/$clickedId/$encodedName"
